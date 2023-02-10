@@ -1,37 +1,42 @@
-CXXFLAGS=-g
+PROJECT = torrentfile
 
-EXE=torrent
+CXXFLAGS = -g
+RM = rm -f
 
 SRC= \
-	main.cpp \
-	Dictionary.cpp \
-	String.cpp \
-	Element.cpp \
-	Integer.cpp \
-	List.cpp \
-	Indent.cpp
+	src/Dictionary.cpp \
+	src/String.cpp \
+	src/Element.cpp \
+	src/Integer.cpp \
+	src/List.cpp \
+	src/Indent.cpp \
+	src/main.cpp 
+
+INC= \
+	src/Dictionary.h \
+	src/String.h \
+	src/Element.h \
+	src/Integer.h \
+	src/List.h \
+	src/ Indent.h \
+	src/Exception.h
 
 OBJ = $(addsuffix .o, $(basename $(SRC)))
 
-${EXE}: ${OBJ}
-	${CXX} ${OBJ} -o ${EXE}
+TARGET = ${PROJECT}
+
+all: ${TARGET}
+
+${TARGET}: ${OBJ}
+	${CXX} $^ -o $@
 
 .SUFFIXES: .cpp
 
 .cpp.o:
-	${CXX} ${CXXFLAGS} -c $<
+	${CXX} ${CXXFLAGS} -c $< -o $@
 
 depend:
 	makedepend ${CXXFLAGS} -Y ${SRC}
 
 clean:
-	rm -f ${OBJ} ${EXE} *~
-# DO NOT DELETE
-
-main.o: Dictionary.h String.h Element.h Exception.h
-Dictionary.o: Dictionary.h String.h Element.h Exception.h
-String.o: String.h Element.h Exception.h
-Element.o: Element.h Dictionary.h String.h Integer.h List.h Exception.h
-Integer.o: Integer.h Element.h Exception.h
-List.o: List.h Element.h Exception.h
-Indent.o: Indent.h
+	$(RM) ${OBJ} ${TARGET} *~

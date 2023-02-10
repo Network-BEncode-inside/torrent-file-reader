@@ -30,7 +30,8 @@ int Bencoding::Element::intValue(const char* const buffer, unsigned& offset)
 {
     std::string numberString;
 
-    while (isdigit(buffer[offset])) {
+    while (isdigit(buffer[offset]))
+    {
         numberString += buffer[offset++];
     }
     if (numberString.length() == 0)
